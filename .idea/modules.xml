@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/EDP_CypressAutomation.iml" filepath="$PROJECT_DIR$/.idea/EDP_CypressAutomation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/E2E/JavaWinApp/OneSuiteDemo.iml" filepath="$PROJECT_DIR$/E2E/JavaWinApp/OneSuiteDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/E2E/SBMS/SBMS.iml" filepath="$PROJECT_DIR$/E2E/SBMS/SBMS.iml" />
+    </modules>
+  </component>
+</project>

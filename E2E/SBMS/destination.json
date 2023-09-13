@@ -1,0 +1,62 @@
+[ {
+  "line" : 2,
+  "elements" : [ {
+    "start_timestamp" : "2023-09-13T21:48:38.857Z",
+    "line" : 4,
+    "name" : "Open View local",
+    "description" : "",
+    "id" : "open-view;open-view-local",
+    "type" : "scenario",
+    "keyword" : "Scenario",
+    "steps" : [ {
+      "result" : {
+        "duration" : 38357651400,
+        "status" : "passed"
+      },
+      "line" : 5,
+      "name" : "Launch View",
+      "match" : {
+        "location" : "com.onesuite.step_definitions.WinApp.launch_view()"
+      },
+      "keyword" : "* "
+    }, {
+      "result" : {
+        "error_message" : "org.openqa.selenium.NoSuchSessionException: Session ID is null. Using WebDriver after calling quit()?\nBuild info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'\nSystem info: host: 'CHQS-GMCCJ7PKZL', ip: '192.168.0.157', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '11.0.16.1'\nDriver info: driver.version: RemoteWebDriver\r\n\tat org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:125)\r\n\tat io.appium.java_client.remote.AppiumCommandExecutor.execute(AppiumCommandExecutor.java:250)\r\n\tat org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)\r\n\tat io.appium.java_client.DefaultGenericMobileDriver.execute(DefaultGenericMobileDriver.java:45)\r\n\tat io.appium.java_client.AppiumDriver.execute(AppiumDriver.java:1)\r\n\tat io.appium.java_client.windows.WindowsDriver.execute(WindowsDriver.java:1)\r\n\tat org.openqa.selenium.remote.RemoteWebDriver.getTitle(RemoteWebDriver.java:281)\r\n\tat com.onesuite.step_definitions.WinApp.launch_view(WinApp.java:17)\r\n\tat ✽.Launch View(file:///C:/CypressAutomation/EDP_CypressAutomation/E2E/JavaWinApp/src/test/resources/features/winapp/winapp.feature:6)\r\n",
+        "duration" : 20525375300,
+        "status" : "failed"
+      },
+      "line" : 6,
+      "name" : "Launch View",
+      "match" : {
+        "location" : "com.onesuite.step_definitions.WinApp.launch_view()"
+      },
+      "keyword" : "* "
+    }, {
+      "result" : {
+        "status" : "skipped"
+      },
+      "line" : 7,
+      "name" : "Launch View",
+      "match" : {
+        "location" : "com.onesuite.step_definitions.WinApp.launch_view()"
+      },
+      "keyword" : "* "
+    } ],
+    "tags" : [ {
+      "name" : "@wip"
+    } ]
+  } ],
+  "name" : "Open View",
+  "description" : "",
+  "id" : "open-view",
+  "keyword" : "Feature",
+  "uri" : "file:src/test/resources/features/winapp/winapp.feature",
+  "tags" : [ {
+    "name" : "@wip",
+    "type" : "Tag",
+    "location" : {
+      "line" : 1,
+      "column" : 1
+    }
+  } ]
+} ]
