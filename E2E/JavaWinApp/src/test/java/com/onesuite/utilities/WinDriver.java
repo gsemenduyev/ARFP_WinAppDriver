@@ -27,8 +27,9 @@ public class WinDriver {
 
         if (winDriver == null) {
             try {
-                String appPath = "C:\\View_4.0.3\\nx64.exe";
-
+               // String appPath = "C:\\View_4.0.3\\nx64.exe";
+        //        String appPath = "Y:\\SBMSNET_Eleven_QA\\SBMSNET.EXE";
+                String appPath = "C:\\CypressAutomation\\EDP_CypressAutomation_Old\\E2E\\SBMS\\Desktop\\SBMSNET.EXE";
                 DesiredCapabilities capability = new DesiredCapabilities();
 
                 capability.setCapability("ms:experimental-webdriver", true);
@@ -39,7 +40,7 @@ public class WinDriver {
                 start();
                 winDriver = new WindowsDriver<WindowsElement>(new URL("http://127.0.0.1:4723"), capability);
                 winDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-                winDriver.manage().window().maximize();
+      //          winDriver.manage().window().maximize();
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }
