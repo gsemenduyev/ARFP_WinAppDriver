@@ -1,20 +1,12 @@
 package com.onesuite.step_definitions;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.databind.node.ArrayNode;
+
 import com.onesuite.test_rail.APIException;
-import io.cucumber.java.AfterAll;
+import com.onesuite.utilities.ScreenshotUtility;
+import com.onesuite.utilities.WinDriver;
 import io.cucumber.java.Before;
 import io.cucumber.plugin.event.Result;
-import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.junit.After;
-import org.junit.Rule;
-import org.junit.rules.TestName;
-import org.openqa.selenium.WebDriver;
-
-import java.io.File;
+import io.cucumber.java.After;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -22,106 +14,157 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import com.onesuite.test_rail.APIClient;
+import com.onesuite.utilities.ChatGPTWinDriver;
 import com.onesuite.utilities.ConfigurationsReader;
-import com.onesuite.utilities.Driver;
-import io.cucumber.java.AfterStep;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 
 import static com.onesuite.test_rail.TestRailAccount.testRailApiClient;
+import static com.onesuite.utilities.ChatGPTWinDriver.closeChatGPTWinDriver;
+import static com.onesuite.utilities.ChatGPTWinDriver.stop;
+import static com.onesuite.utilities.Driver.getDriver;
 // import static com.onesuite.utilities.BrowserUtils.launchBVT;
 // import static com.onesuite.utilities.BrowserUtils.launchSteelCloud;
 
 public class Hooks {
 
     private static APIClient client = null;
-    private static String runId = ConfigurationsReader.getProperty("runIdTestRail" );
+    private static String runId = ConfigurationsReader.getProperty("runIdTestRail");
     private static final int FAIL_STATE = 5;
     private static final int SUCCESS_STATE = 1;
     private static final String SUCCESS_COMMENT = "This test passed with Selenium";
     private static final String FAILED_COMMENT = "This test failed with Selenium";
 
-    @Rule
-    public TestName testName = new TestName();
+    // @Rule
+    // public TestName testName = new TestName();
+    //
+    // public static WebDriver driver;
+    //
+    // @After
+    // public void afterScenario() {
+    // // Your code to be executed after all scenarios
+    //
+    // // public static void main(String[] args) {
+    // ObjectMapper objectMapper = new ObjectMapper();
+    // try {
+    // // Step 1: Read data from the source JSON file
+    // File sourceJsonFile = new File(
+    // "C:\\CypressAutomation\\EDP_CypressAutomation_Old\\E2E\\JavaWinApp\\target\\cucumber.json");
+    // JsonNode sourceData = objectMapper.readTree(sourceJsonFile);
+    //
+    // // Step 2: Read data from the destination JSON file (if it exists)
+    // File destinationJsonFile = new File(
+    // "C:\\CypressAutomation\\EDP_CypressAutomation_Old\\E2E\\SBMS\\destination.json");
+    // JsonNode destinationData = objectMapper.createObjectNode();
+    //
+    // if (destinationJsonFile.exists()) {
+    // destinationData = objectMapper.readTree(destinationJsonFile);
+    // }
+    //
+    // // Step 3: Append data from the source to the destination
+    // if (destinationData.isArray() && sourceData.isArray()) {
+    // for (JsonNode item : sourceData) {
+    // ((ArrayNode) destinationData).add(item);
+    // }
+    // } else {
+    // // Handle other cases as needed
+    // }
+    //
+    // // Step 4: Write the updated data back to the destination JSON file
+    // ObjectWriter writer = objectMapper.writerWithDefaultPrettyPrinter();
+    // writer.writeValue(destinationJsonFile, destinationData);
+    //
+    // System.out.println("Data copied and appended successfully.");
+    // } catch (IOException e) {
+    // e.printStackTrace();
+    // }
+    // }
 
-    public static WebDriver driver;
-//    @AfterAll
-//    public static void sendReport(){
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        try {
-//            // Step 1: Read data from the source JSON file
-//            File sourceJsonFile = new File("E2E\\JavaWinApp\\target\\cucumber.json");
-//            JsonNode sourceData = objectMapper.readTree(sourceJsonFile);
-//
-//            // Step 2: Read data from the destination JSON file (if it exists)
-//            File destinationJsonFile = new File("C:\\CypressAutomation\\EDP_CypressAutomation\\E2E\\SBMS\\destination.json");
-//            JsonNode destinationData = objectMapper.createObjectNode();
-//
-//            if (destinationJsonFile.exists()) {
-//                destinationData = objectMapper.readTree(destinationJsonFile);
-//            }
-//
-//            // Step 3: Append data from the source to the destination
-//            if (destinationData.isArray() && sourceData.isArray()) {
-//                for (JsonNode item : sourceData) {
-//                    ((ArrayNode) destinationData).add(item);
-//                }
-//            } else {
-//                // Handle other cases as needed
-//            }
-//
-//            // Step 4: Write the updated data back to the destination JSON file
-//            ObjectWriter writer = objectMapper.writerWithDefaultPrettyPrinter();
-//            writer.writeValue(destinationJsonFile, destinationData);
-//
-//            System.out.println("Data copied and appended successfully.");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//    @Before(order = 1)
-//    public void launchRelQa(){
-//        launchSteelCloud(3); envBVT
-//    }
+    // Add your code here
 
+    // @AfterAll
+    // public static void sendReport(){
+    // ObjectMapper objectMapper = new ObjectMapper();
+    // try {
+    // // Step 1: Read data from the source JSON file
+    // File sourceJsonFile = new File("target/cucumber.json");
+    // JsonNode sourceData = objectMapper.readTree(sourceJsonFile);
+
+    // // Step 2: Read data from the destination JSON file (if it exists)
+    // File destinationJsonFile = new File(
+    // "C:\\CypressAutomation\\EDP_CypressAutomation_Old\\E2E\\SBMS\\destination.json");
+    // JsonNode destinationData = objectMapper.createObjectNode();
+
+    // if (destinationJsonFile.exists()) {
+    // destinationData = objectMapper.readTree(destinationJsonFile);
+    // }
+
+    // // Step 3: Append data from the source to the destination
+    // if (destinationData.isArray() && sourceData.isArray()) {
+    // for (JsonNode item : sourceData) {
+    // ((ArrayNode) destinationData).add(item);
+    // }
+    // } else {
+    // // Handle other cases as needed
+    // }
+
+    // // Step 4: Write the updated data back to the destination JSON file
+    // ObjectWriter writer = objectMapper.writerWithDefaultPrettyPrinter();
+    // writer.writeValue(destinationJsonFile, destinationData);
+
+    // System.out.println("Data copied and appended successfully.");
+    // } catch (IOException e) {
+    // e.printStackTrace();
+    // }
+    // }
+
+    // @Before(order = 1)
+    // public void launchRelQa(){
+    // launchSteelCloud(3); envBVT
+    // }
+    //
     // @Before("@RelQa")
     // public void relQaHook() {
-    //     launchSteelCloud(3);
+    // launchSteelCloud(3);
     // }
-
+    //
     // @Before("@BVT")
     // public void envBVT() { launchBVT(10);}
-
+    //
     // @Before("@RealPm")
     // public void realPm() {
-
-    //     String url = ConfigurationsReader.getProperty("realPm");
-    //     String temUrl = url.replaceFirst(" ", System.getenv("username"));
-    //     String finalUrl = temUrl.replace(" ", System.getenv("password"));
-
-    //     Driver.getDriver().get(finalUrl);
+    //
+    // String url = ConfigurationsReader.getProperty("realPm");
+    // String temUrl = url.replaceFirst(" ", System.getenv("username"));
+    // String finalUrl = temUrl.replace(" ", System.getenv("password"));
+    //
+    // Driver.getDriver().get(finalUrl);
     // }
-
-    // @After(order = 1)
+    //
+    // @After()
     // public void tearDownScenario(Scenario scenario) {
-
-    //     if (scenario.isFailed()) {
-    //         byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
-    //         scenario.attach(screenshot, "image/png", scenario.getName());
-    //     }
-    //     Driver.closeDriver();
-    //     logResultToTestRail(scenario);
+    // System.out.println("Takes Screenshot");
+    //
+    //// if (!scenario.isFailed()) {
+    // byte[] screenshot = ((TakesScreenshot)
+    // WinDriver.getWinDriver()).getScreenshotAs(OutputType.BYTES);
+    // scenario.attach(screenshot, "image/png", scenario.getName());
+    //// }
+    //// Driver.closeDriver();
+    //// logResultToTestRail(scenario);
     // }
 
     // @AfterStep()
-
-    //     public void takeScreenshots(Scenario scenario) throws InterruptedException {
-    //     if (!scenario.isFailed()) {
-    //         Thread.sleep(200);
-    //         byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
-    //         scenario.attach(screenshot, "image/png", scenario.getName());
-    //     }
+    //
+    // public void takeScreenshots(Scenario scenario) throws InterruptedException {
+    // if (!scenario.isFailed()) {
+    // Thread.sleep(200);
+    // byte[] screenshot = ((TakesScreenshot)
+    // Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
+    // scenario.attach(screenshot, "image/png", scenario.getName());
+    // }
     // }
 
     private void logResultToTestRail(Scenario scenario) {
@@ -129,9 +172,9 @@ public class Hooks {
         System.out.println(scenario.getSourceTagNames());
 
         for (String s : scenario.getSourceTagNames()) {
-            if (s.contains("TestRail" )) {
+            if (s.contains("TestRail")) {
 
-                String[] res = s.split("(\\(.*?)" );
+                String[] res = s.split("(\\(.*?)");
 
                 caseId = res[1].substring(0, res[1].length() - 1); // Removing the last parenthesis
             }
@@ -148,11 +191,11 @@ public class Hooks {
             data.put("comment", logError(scenario));
         }
 
-        if (!caseId.equals("" )) {
+        if (!caseId.equals("")) {
             try {
 
-                if (System.getenv("runIdTestRail" ) != null && System.getenv("runTestRailId" ).equals("" )) {
-                    runId = System.getenv("runIdTestRail" );
+                if (System.getenv("runIdTestRail") != null && System.getenv("runTestRailId").equals("")) {
+                    runId = System.getenv("runIdTestRail");
                 }
 
                 client = testRailApiClient();
@@ -170,7 +213,7 @@ public class Hooks {
                 fieldScenario.setAccessible(true);
                 Object objectScenario = fieldScenario.get(scenario);
 
-                Field fieldStepResults = objectScenario.getClass().getDeclaredField("stepResults" );
+                Field fieldStepResults = objectScenario.getClass().getDeclaredField("stepResults");
                 fieldStepResults.setAccessible(true);
 
                 ArrayList<Result> results = (ArrayList<Result>) fieldStepResults.get(objectScenario);
@@ -186,5 +229,21 @@ public class Hooks {
         } catch (IllegalAccessException | NoSuchFieldException e) {
             return FAILED_COMMENT;
         }
+    }
+
+    private Scenario scenario;
+
+    @Before
+    public void setUp(Scenario scenario) {
+        this.scenario = scenario;
+    }
+
+    @After
+    public void tearDown() {
+        System.out.println("Takes Screenshot");
+        byte[] screenshot = ((TakesScreenshot) ChatGPTWinDriver.chatGPTWinDriver()).getScreenshotAs(OutputType.BYTES);
+        scenario.attach(screenshot, "image/png", scenario.getName());
+        closeChatGPTWinDriver();
+        stop();
     }
 }

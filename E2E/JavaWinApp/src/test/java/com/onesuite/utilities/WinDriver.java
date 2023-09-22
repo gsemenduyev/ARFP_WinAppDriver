@@ -2,7 +2,10 @@ package com.onesuite.utilities;
 
 import io.appium.java_client.windows.WindowsDriver;
 import io.appium.java_client.windows.WindowsElement;
+import io.cucumber.java.Scenario;
 
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -27,8 +30,8 @@ public class WinDriver {
 
         if (winDriver == null) {
             try {
-               // String appPath = "C:\\View_4.0.3\\nx64.exe";
-        //        String appPath = "Y:\\SBMSNET_Eleven_QA\\SBMSNET.EXE";
+                // String appPath = "C:\\View_4.0.3\\nx64.exe";
+                // String appPath = "Y:\\SBMSNET_Eleven_QA\\SBMSNET.EXE";
                 String appPath = "C:\\CypressAutomation\\EDP_CypressAutomation_Old\\E2E\\SBMS\\Desktop\\SBMSNET.EXE";
                 DesiredCapabilities capability = new DesiredCapabilities();
 
@@ -40,7 +43,7 @@ public class WinDriver {
                 start();
                 winDriver = new WindowsDriver<WindowsElement>(new URL("http://127.0.0.1:4723"), capability);
                 winDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-      //          winDriver.manage().window().maximize();
+                // winDriver.manage().window().maximize();
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }
@@ -87,11 +90,9 @@ public class WinDriver {
         }
     }
 
-
     public static void main(String[] args) throws InterruptedException {
 
-
-     //   WinDriver.start();
+        // WinDriver.start();
         Actions act = new Actions(WinDriver.getWinDriver());
         Thread.sleep(500);
         Thread.sleep(20000);
@@ -114,7 +115,7 @@ public class WinDriver {
         WinDriver.stop();
     }
 
-    //   closeWinDriver();
+    // closeWinDriver();
 
     private static WindowsDriver winDriver1;
 
@@ -130,23 +131,28 @@ public class WinDriver {
 
         AtomicReference<WindowsElement> applicationWindow = null;
         List openWindows = winDriver1.findElementsByName("Window");
-        openWindows.stream().filter(it -> it.equals("Strata VIEW for Cable")).forEach(it -> applicationWindow.set((WindowsElement) it));
+        openWindows.stream().filter(it -> it.equals("Strata VIEW for Cable"))
+                .forEach(it -> applicationWindow.set((WindowsElement) it));
 
-// Attaching to existing Application Window
+        // Attaching to existing Application Window
         String topLevelWindowHandle = applicationWindow.get().getAttribute("NativeWindowHandle");
-        //  topLevelWindowHandle = int.Parse(topLevelWindowHandle).ToString("X");
+        // topLevelWindowHandle = int.Parse(topLevelWindowHandle).ToString("X");
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("deviceName", "WindowsPC");
         capabilities.setCapability("appTopLevelWindow", topLevelWindowHandle);
         winDriver1 = new WindowsDriver<WindowsElement>(new URL("http://127.0.0.1:4723"), capabilities);
 
+    }
 
+    // Function to take a screenshot
+
+    public static void takeScreenshots(Scenario scenario) {
+        System.err.println("Takes Screenshot");
+
+        if (scenario.isFailed()) {
+            byte[] screenshot = ((TakesScreenshot) WinDriver.getWinDriver()).getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenshot, "image/png", scenario.getName());
+        }
     }
 }
-
-
-
-
-
-
