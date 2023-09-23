@@ -10,23 +10,23 @@ import java.io.IOException;
 import java.net.URL;
 
 public class ChatGPTWinDriver {
-
+    static WebDriver winDriver = null;
     public static WebDriver chatGPTWinDriver() {
-        WebDriver driver = null;
+        if (winDriver == null) {
+            try {
+                DesiredCapabilities capabilities = new DesiredCapabilities();
+                capabilities.setCapability("app",
+                        "C:\\CypressAutomation\\EDP_CypressAutomation_Old\\E2E\\SBMS\\Desktop\\SBMSNET.EXE");
+                start();
+                winDriver = new RemoteWebDriver(new URL("http://127.0.0.1:4723"), capabilities);
 
-        try {
-            DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("app",
-                    "C:\\CypressAutomation\\EDP_CypressAutomation_Old\\E2E\\SBMS\\Desktop\\SBMSNET.EXE");
-            start();
-            driver = new RemoteWebDriver(new URL("http://127.0.0.1:4723"), capabilities);
+                // Perform your testing actions here
 
-            // Perform your testing actions here
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        return driver;
+        return winDriver;
     }
 
     public static void closeChatGPTWinDriver() {

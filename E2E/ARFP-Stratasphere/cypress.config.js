@@ -9,6 +9,13 @@ const xlsx = require('node-xlsx').default;
 const path = require('path')
 const RUN_ENV_FILE_PATH = 'cypress/reports/run-info/run-env.json';
 const delay = async (ms) => new Promise((res) => setTimeout(res, ms));
+
+const sourceFilePath = 'cypress/reports/cucumber-reports/results.json';
+const destinationFilePath = 'cypress/reports/sbms-arfp-stratasphere-report/sbms-arfp-stratasphere-report.json';
+
+
+
+
 async function setupNodeEvents(cypressOn, config) {
   const on = require('cypress-on-fix')(cypressOn)
   await addCucumberPreprocessorPlugin(on, config, { omitAfterRunHandler: true, });
@@ -16,12 +23,12 @@ async function setupNodeEvents(cypressOn, config) {
   allureWriter(on, config);
   registerDataSession(on, config);
   new TestRailReporter(on, config).register();
-  
-  on('task', { 
-    parseXlsx({ filePath }) { 
-      return new Promise((resolve, reject) => { 
+
+  on('task', {
+    parseXlsx({ filePath }) {
+      return new Promise((resolve, reject) => {
         try {
-          const jsonData = xlsx.parse(fs.readFileSync(filePath)); 
+          const jsonData = xlsx.parse(fs.readFileSync(filePath));
           resolve(jsonData);
         } catch (e) {
           reject(e)
@@ -69,6 +76,32 @@ async function setupNodeEvents(cypressOn, config) {
         ),
       );
     }
+
+    // Step 1: Read the source JSON file
+    const sourceFileName = 'C:\\CypressAutomation\\EDP_CypressAutomation_Old\\E2E\\ARFP-Stratasphere\\cypress\\reports\\cucumber-reports\\results.json';
+    const sourceData = JSON.parse(fs.readFileSync(sourceFileName, 'utf-8'));
+
+    // Step 2: Read the destination JSON file (if it exists)
+    const destinationFileName = 'C:\\CypressAutomation\\EDP_CypressAutomation_Old\\E2E/ARFP-Stratasphere\\cypress\\reports\\sbms-arfp-stratasphere-report\\sbms-arfp-stratasphere-report.json';
+    let destinationData = [];
+
+    if (fs.existsSync(destinationFileName)) {
+      destinationData = JSON.parse(fs.readFileSync(destinationFileName, 'utf-8'));
+
+
+      // Step 3: Append data from the source to the destination
+      destinationData = destinationData.concat(sourceData);
+
+      // Step 4: Write the updated data back to the destination JSON file
+      fs.writeFileSync(destinationFileName, JSON.stringify(destinationData, null, 2));
+
+      console.log('Data copied and appended successfully.');
+
+
+    } else {
+      console.log('Destination file doesnt exists.');
+    }
+
   });
   return config;
 }

@@ -29,7 +29,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class CukesRunner {
         @AfterClass
         public static void generateReport() {
-                System.out.println("Helooooooo");
                 File reportOutputDirectory = new File("target");
 
                 List<String> jsonFiles = new ArrayList<>();
@@ -53,7 +52,7 @@ public class CukesRunner {
 
                         // Step 2: Read data from the destination JSON file (if it exists)
                         File destinationJsonFile = new File(
-                                        "C:\\CypressAutomation\\EDP_CypressAutomation_Old\\E2E\\SBMS\\destination.json");
+                                        "C:\\CypressAutomation\\EDP_CypressAutomation_Old\\E2E\\ARFP-Stratasphere\\cypress\\reports\\sbms-arfp-stratasphere-report\\sbms-arfp-stratasphere-report.json");
                         JsonNode destinationData = objectMapper.createObjectNode();
 
                         if (destinationJsonFile.exists()) {

@@ -1,11 +1,11 @@
 const fs = require('fs');
 
 // Step 1: Read the source JSON file
-const sourceFileName = 'E2E\\ARFP-Stratasphere\\cypress\\reports\\cucumber-reports\\results.json';
+const sourceFileName = 'C:\\CypressAutomation\\EDP_CypressAutomation_Old\\E2E\\ARFP-Stratasphere\\cypress\\reports\\cucumber-reports\\results.json';
 const sourceData = JSON.parse(fs.readFileSync(sourceFileName, 'utf-8'));
 
 // Step 2: Read the destination JSON file (if it exists)
-const destinationFileName = 'E2E\\SBMS\\destination.json';
+const destinationFileName = 'C:\\CypressAutomation\\EDP_CypressAutomation_Old\\E2E/ARFP-Stratasphere\\cypress\\reports\\sbms-arfp-stratasphere-report\\sbms-arfp-stratasphere-report.json';
 let destinationData = [];
 
 if (fs.existsSync(destinationFileName)) {

@@ -1,8 +1,6 @@
 package com.onesuite.step_definitions;
 
 import com.onesuite.test_rail.APIException;
-import com.onesuite.utilities.ScreenshotUtility;
-import com.onesuite.utilities.WinDriver;
 import io.cucumber.java.Before;
 import io.cucumber.plugin.event.Result;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -19,14 +17,11 @@ import com.onesuite.utilities.ConfigurationsReader;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+
 
 import static com.onesuite.test_rail.TestRailAccount.testRailApiClient;
 import static com.onesuite.utilities.ChatGPTWinDriver.closeChatGPTWinDriver;
 import static com.onesuite.utilities.ChatGPTWinDriver.stop;
-import static com.onesuite.utilities.Driver.getDriver;
-// import static com.onesuite.utilities.BrowserUtils.launchBVT;
-// import static com.onesuite.utilities.BrowserUtils.launchSteelCloud;
 
 public class Hooks {
 
@@ -243,7 +238,7 @@ public class Hooks {
         System.out.println("Takes Screenshot");
         byte[] screenshot = ((TakesScreenshot) ChatGPTWinDriver.chatGPTWinDriver()).getScreenshotAs(OutputType.BYTES);
         scenario.attach(screenshot, "image/png", scenario.getName());
-        closeChatGPTWinDriver();
-        stop();
+//        closeChatGPTWinDriver();
+//        stop();
     }
 }
