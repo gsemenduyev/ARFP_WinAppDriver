@@ -24,11 +24,14 @@ node ./sbms-stratasphere-html-report.js
 
 npx cypress open  --env ENV="QA",VERSION="v 8.4.1.39508"
 
-npx cypress run --browser chrome --headed --env tags="@WIP",ENV="QA",VERSION="v 8.4.0"
+npx cypress run --browser chrome --headed --env tags="@WIP",ENV="Production",VERSION="v 8.4.0"
 
 echo [] > C:\CypressAutomation\EDP_CypressAutomation_Old\E2E\ARFP-Stratasphere\cypress\reports\test-command.json
 del C:\CypressAutomation\EDP_CypressAutomation_Old\E2E\ARFP-Stratasphere\cypress\reports\test-command.json
 
-
+sbms-stratasphere-html-report.js
 
 run_projects.bat
+
+
+C:\CypressAutomation\EDP_CypressAutomation\E2E\ARFP-Stratasphere

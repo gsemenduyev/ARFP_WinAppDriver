@@ -7,7 +7,11 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
+
 import javax.imageio.ImageIO;
+
+import org.openqa.selenium.By;
 
 public class ScreenshotUtility {
     public static void captureScreenshot(String screenshotPath) {
@@ -21,4 +25,3 @@ public class ScreenshotUtility {
         }
     }
 }
-

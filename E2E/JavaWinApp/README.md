@@ -20,5 +20,5 @@ mvn test -Dtest=runners\CukesRunner.java
 
 E2E\JavaWinApp\src\test\java\com\onesuite\runners\CukesRunner.java
 
-
+C:\CypressAutomation\EDP_CypressAutomation_Old\E2E
 mvn clean test -Dtest=runners\CukesRunner.java

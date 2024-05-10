@@ -1,27 +1,25 @@
 package com.onesuite.step_definitions;
 
+import com.onesuite.test_rail.APIClient;
 import com.onesuite.test_rail.APIException;
-import io.cucumber.java.Before;
+import com.onesuite.utilities.ChatGPTWinDriver;
+import com.onesuite.utilities.ConfigurationsReader;
+import io.cucumber.java.*;
 import io.cucumber.plugin.event.Result;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import io.cucumber.java.After;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import com.onesuite.test_rail.APIClient;
-import com.onesuite.utilities.ChatGPTWinDriver;
-import com.onesuite.utilities.ConfigurationsReader;
-import io.cucumber.java.Scenario;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-
 
 import static com.onesuite.test_rail.TestRailAccount.testRailApiClient;
 import static com.onesuite.utilities.ChatGPTWinDriver.closeChatGPTWinDriver;
-import static com.onesuite.utilities.ChatGPTWinDriver.stop;
+
 
 public class Hooks {
 
@@ -228,6 +226,10 @@ public class Hooks {
 
     private Scenario scenario;
 
+    @BeforeAll
+    public static void start(){
+        ChatGPTWinDriver.start();
+    }
     @Before
     public void setUp(Scenario scenario) {
         this.scenario = scenario;
@@ -235,10 +237,20 @@ public class Hooks {
 
     @After
     public void tearDown() {
-        System.out.println("Takes Screenshot");
-        byte[] screenshot = ((TakesScreenshot) ChatGPTWinDriver.chatGPTWinDriver()).getScreenshotAs(OutputType.BYTES);
-        scenario.attach(screenshot, "image/png", scenario.getName());
-//        closeChatGPTWinDriver();
-//        stop();
+//        System.out.println("Takes Screenshot");
+//        byte[] screenshot = ((TakesScreenshot) ChatGPTWinDriver.chatGPTWinDriver()).getScreenshotAs(OutputType.BYTES);
+//        scenario.attach(screenshot, "image/png", scenario.getName());
+        ChatGPTWinDriver.closeChatGPTWinDriver();
     }
+
+    @AfterAll
+    public static void tearDown1(){
+        ChatGPTWinDriver.closeChatGPTWinDriver();
+        ChatGPTWinDriver.stop();
+    }
+
+    public static void main(String[] args) {
+        start();
+    }
+
 }
