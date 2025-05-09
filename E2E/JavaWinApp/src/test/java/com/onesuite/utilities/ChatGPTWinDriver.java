@@ -18,13 +18,14 @@ import static java.lang.Integer.parseInt;
 
 public class ChatGPTWinDriver {
     private static WindowsDriver<WindowsElement> winDriver;
+
     public static WebDriver chatGPTWinDriver() {
         if (winDriver == null) {
             try {
                 DesiredCapabilities capabilities = new DesiredCapabilities();
                 capabilities.setCapability("app",
-                        "C:\\CypressAutomation\\EDP_CypressAutomation_Old\\E2E\\SBMS\\Desktop\\SBMSNET.EXE");
-             //  start();
+                        "C:\\Automation\\CypressAutomation\\EDP_CypressAutomation_Old\\E2E\\SBMS\\Desktop\\SBMSNET.EXE");
+                // start();
                 winDriver = new WindowsDriver<>(new URL("http://127.0.0.1:4723"), capabilities);
 
                 // Perform your testing actions here
@@ -75,7 +76,6 @@ public class ChatGPTWinDriver {
         }
     }
 
-
     private static WindowsDriver<WindowsElement> openWinDriver;
 
     public static WindowsDriver<WindowsElement> getOpenWinDriver() {
@@ -90,7 +90,8 @@ public class ChatGPTWinDriver {
                 capability.setCapability("deviceName", "Windows10Machine");
                 openWinDriver = new WindowsDriver<>(new URL("http://127.0.0.1:4723"), capability);
 
-                WindowsElement windowsElement = openWinDriver.findElementByXPath("//*[starts-with(@Name,' SBMS for Spot')]");
+                WindowsElement windowsElement = openWinDriver
+                        .findElementByXPath("//*[starts-with(@Name,' SBMS for Spot')]");
                 String tempWindowHandle = windowsElement.getAttribute("NativeWindowHandle");
                 int num = parseInt(tempWindowHandle);
                 String topLevelWindowHandle1 = Integer.toHexString(num);
@@ -114,8 +115,5 @@ public class ChatGPTWinDriver {
         start();
         ChatGPTWinDriver.getOpenWinDriver().findElement(By.name("Buy")).click();
     }
-
-
-
 
 }
